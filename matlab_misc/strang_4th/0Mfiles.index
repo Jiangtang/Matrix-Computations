@@ -1,0 +1,54 @@
+Warning: Function randperm has the same name as a MATLAB builtin. We suggest you rename the function to avoid a potential name conflict.
+
+http://www-h.eng.cam.ac.uk/help/programs/octave/tutorial/
+
+
+35 tridiag  Construct a tridiagonal matrix with constant diagonals a, b, c.
+
+01 cofactor Compute the n by n matrix of cofactors.
+03 determ   Matrix determinant computed from the pivots in P A = L U .
+29 signperm Determinant of the permutation matrix with rows ordered by p.
+13 inverse  Matrix inverse (if it exists) by Gauss-Jordan elimination.
+
+05 eigshow  Graphical demonstration of eigenvalues and singular values.
+
+04 eigen2   Eigenvalues, eigenvectors, and det(A - AI) for 2 by 2 matrices.
+06 eigval   Eigenvalues and their multiplicity as roots of det(A - AI) = O.
+07 eigvec   Compute as many linearly independent eigenvectors as possible.
+17 normal   Eigenvalues and orthonormal eigenvectors when ATA = A AT.
+34 symmeig  Compute the eigenvalues and eigenvectors of a symmetric matrix.
+
+11 grams    A = QR: Gram-Schmidt orthogonalization of the columns of A.
+19 orthcomp Find a basis for the orthogonal complement of a subspace.
+
+08 elim     E*A = R factorization (for left nullspace): Reduction of A to row echelon form R by an invertible E.
+37 cab      A = c a b echelon factorization.
+09 findpiv  Find a pivot for Gaussian elimination (used by plu).
+22 plu      Rectangular PA = LU factorization with row exchanges.
+32 splu     Square PA = LU factorization with row exchanges.
+30 slu      A = LU, LU factorization of a square matrix using no row exchanges.
+31 slv      Apply slu to solve the system Ax = b allowing no row exchanges.
+33 spiv     The solution to a square, invertible system Ax = b.
+02 cramer   Solve the system Ax = b by Cramer's Rule: x = cramer(A, b).
+20 partic   Particular solution of Ax = b, with all free variables zero.
+
+16 Isq      Least squares solution to Ax = b from ATAx = ATb.
+15 Iinefit  Plot the least squares fit to m given points by a line.
+
+10 fourbase Construct bases for all four fundamental subspaces.
+	18 nulbasis Matrix of special solutions to Ax = 0 (basis for nullspace).
+	14 leftnull Compute a basis for the left nullspace.
+	36 colbasis  Basis for the column space.
+	27 rowbasis Compute a basis for the row space from the pivot rows of R.
+28 samespan Test whether two matrices have the same column space.
+
+
+24 project  Project a vector b onto the column space of A.
+25 projmat  Construct the projection matrix onto the column space of A.
+
+12 house    2 by 12 matrix giving corner coordinates of a house.
+21 plot2d   Two-dimensional plot for the house figures.
+
+23 poly2str Express a polynomial as a string.
+
+26 randperm Construct a random permutation.

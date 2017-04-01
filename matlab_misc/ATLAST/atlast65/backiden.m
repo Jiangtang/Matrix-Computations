@@ -1,0 +1,1 @@
+function B=backiden(n)% The command backiden(n) will generate nxn% backwards identity matrix. The matrix will% have 1's on the anti-diagonal and 0's elsewhere.B=fliplr(eye(n));
