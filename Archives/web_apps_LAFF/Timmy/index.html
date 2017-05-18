@@ -1,0 +1,237 @@
+<html>
+<!--
+
+This implementation of Timmy! was implemented by Ed McCardell, who was
+a participant in the original offering of the "Linear Algebra:
+Foundations to Frontiers" MOOC launched by edX.
+
+It was based on an implementation in IPython by Ben Holder.  The
+activity itself was based on a similar activity by Prof. Alan Cline.
+
+For more information on Ed's implementation, visit
+
+        https://github.com/edmccard/timmytwospace 
+-->
+
+ <head>
+  <script type="application/javascript">
+    var timmy;
+    function Timmy() {
+      this.canvas = document.getElementById("canvas");
+      this.ctx = this.canvas.getContext("2d");
+      this.showGrid = document.getElementById("grid");
+      this.showAxes = document.getElementById("axes");
+      this.showTicks = document.getElementById("ticks");
+      this.showTarget = document.getElementById("target");
+      this.showGhost = document.getElementById("ghost");
+      this.showAxes.checked = true;
+      this.showTarget.checked = true;
+      this.showGhost.checked = true;
+      this.showGrid.checked = false;
+      this.showTicks.checked = false;
+      this.upTarget = document.getElementById("uptarget");
+      this.downTarget = document.getElementById("downtarget");
+      this.xf0 = document.getElementById("xf0");
+      this.xf1 = document.getElementById("xf1");
+      this.xf2 = document.getElementById("xf2");
+      this.xf3 = document.getElementById("xf3");
+      this.currTarget = 1;
+      this.targets = [[1, 1, 0, 1],
+                      [0, -1, 1, 0],
+                      [2, 0, 0, 2],
+                      [-1, 0, 0, 1],
+                      [0.4, 0, 0, 0.4],
+                      [1, 0, 0, -1],
+                      [-1, 0, 0, -1],
+                      [1, 0, 1, 1],
+                      [2, 0, 0, 0.5],
+                      [-1.00, -1.00, 1.00, -1.00],
+                      [2, 0, 3, -2]];
+
+      this.xform = function() {
+        var width = this.canvas.width;
+        var height = this.canvas.height;
+        this.ctx.setTransform(width/20, 0, 0, -(height/20),
+            width/2, this.canvas.height/2);
+      }
+
+      this.clear = function() {
+        var ctx = this.ctx;
+        var width = this.canvas.width;
+        var height = this.canvas.height;
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, width, height);
+        ctx.restore();
+      }
+
+      this.draw = function() {
+        this.clear();
+        if (this.showGrid.checked) {
+          this.drawGrid();
+        }
+        if (this.showAxes.checked) {
+          this.drawAxes();
+        }
+        if (this.showTicks.checked) {
+          this.drawTicks();
+        }
+        if (this.showGhost.checked) {
+          this.drawTimmy(1, 0, 0, 1, "lightgray", 0.04);
+        }
+        if (this.showTarget.checked) {
+          this.drawTimmy(this.targets[this.currTarget][0],
+                         this.targets[this.currTarget][1],
+                         this.targets[this.currTarget][2],
+                         this.targets[this.currTarget][3],
+                         "lightblue", 0.1);
+        }
+        this.drawTimmy(this.a, this.b, this.c, this.d, "blue", 0.04);
+      }
+
+      this.drawLine = function(x1, y1, x2, y2) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(x1, y1);
+        this.ctx.lineTo(x2, y2);
+        this.ctx.stroke();
+      }
+
+      this.drawGrid = function() {
+        this.ctx.strokeStyle = "gainsboro";
+        this.ctx.lineWidth = 0.04;
+        var i;
+        for (i = -9; i <= 9; i++) {
+          this.drawLine(i, 10, i, -10);
+          this.drawLine(-10, i, 10, i);
+        }
+      }
+
+      this.drawTicks = function() {
+        var ctx = this.ctx;
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 0.04;
+        var i;
+        for (i = -9; i <= 9; i++) {
+          this.drawLine(i, 0.25, i, 0);
+          this.drawLine(0, i, 0.25, i);
+        }
+      }
+
+      this.drawAxes = function() {
+        this.ctx.strokeStyle = "red";
+        this.ctx.lineWidth = 0.04;
+        this.drawLine(-10, 0, 10, 0);
+        this.drawLine(0, 10, 0, -10);
+      }
+
+      this.drawTimmy = function(a, b, c, d, ss, lw) {
+        this.ctx.strokeStyle = ss;
+        this.ctx.lineWidth = lw;
+        this.drawLine(0, 0, a+b, c+d);
+        this.drawLine(2*a, 2*c, a+b, c+d);
+        this.drawLine(a+b, c+d, a+3*b, c+3*d);
+        this.drawLine(1.5*b, 1.5*d, 2*a+2.5*b, 2*c+2.5*d);
+        this.drawLine(0.25*a+3*b, 0.25*c+3*d, 1.75*a+3*b, 1.75*c+3*d);
+        this.drawLine(1.75*a+3*b, 1.75*c+3*d, 1.75*a+4.5*b, 1.75*c+4.5*d);
+        this.drawLine(1.75*a+4.5*b, 1.75*c+4.5*d, 0.25*a+4.5*b, 0.25*c+4.5*d);
+        this.drawLine(0.25*a+4.5*b, 0.25*c+4.5*d, 0.25*a+3*b, 0.25*c+3*d);
+      }
+
+      this.moveTimmy = function() {
+        var newa = parseFloat(this.xf0.value);
+        var newb = parseFloat(this.xf1.value);
+        var newc = parseFloat(this.xf2.value);
+        var newd = parseFloat(this.xf3.value);
+        if (isNaN(newa) || isNaN(newb) || isNaN(newc) || isNaN(newd)) {
+          return;
+        }
+        this.a = newa;
+        this.b = newb;
+        this.c = newc;
+        this.d = newd;
+        this.draw();
+      }
+
+      this.setValues = function(a, b, c, d) {
+        this.xf0.value = a.toString();
+        this.xf1.value = b.toString();
+        this.xf2.value = c.toString();
+        this.xf3.value = d.toString();
+      }
+
+      this.changeTarget = function(delta) {
+        this.currTarget += delta;
+        if (this.currTarget == 0) {
+          this.downTarget.disabled = true;
+        } else {
+          this.downTarget.disabled = false;
+        }
+        if (this.currTarget == 10) {
+          this.upTarget.disabled = true;
+        } else {
+          this.upTarget.disabled = false;
+        }
+        this.setValues(1, 0, 0, 1);
+        this.moveTimmy();
+      }
+
+      this.helpMe = function() {
+        this.setValues(this.targets[this.currTarget][0],
+                       this.targets[this.currTarget][1],
+                       this.targets[this.currTarget][2],
+                       this.targets[this.currTarget][3]);
+        this.moveTimmy();
+      }
+    }
+
+    function init() {
+      timmy = new Timmy();
+      timmy.setValues(1, 0, 0, 1);
+      timmy.xform();
+      timmy.moveTimmy();
+      timmy.changeTarget(-1);
+    }
+  </script>
+  <style type="text/css">
+    canvas { border: 1px solid black; }
+  </style>
+  <title>Timmy Two Space</title>
+ </head>
+ <body onload="init();">
+   <form>
+   <table>
+   <tr>
+     <td><input type="text" size="4" value="1" id="xf0" tabindex="1"></td>
+     <td><input type="text" size="4" value="0" id="xf1" tabindex="2"></td>
+     <td>
+       <button type="button" onclick="timmy.moveTimmy();">Timmy!</button>
+       <button type="button" id="downtarget" onclick="timmy.changeTarget(-1);">
+         &lt; Previous Target
+       </button>
+       <button type="button" id="uptarget" onclick="timmy.changeTarget(1);">
+         Next Target &gt;
+       </button>
+     </td>
+   </tr>
+   <tr>
+     <td><input type="text" size="4" value="0" id="xf2" tabindex="3"></td>
+     <td><input type="text" size="4" value="1" id="xf3" tabindex="4"></td>
+     <td>
+       Target<input type="checkbox" id="target" onclick="timmy.draw();">
+       Ghost<input type="checkbox" id="ghost" onclick="timmy.draw();">
+     </td>
+   </tr>
+   </table>
+   </form>
+   <canvas id="canvas" width="500" height="500"></canvas>
+   <form>
+   <button type="button" onclick="timmy.helpMe();">Surrender</button>
+   Grid
+   <input type="checkbox" id="grid" onclick="timmy.draw();">
+   Axes
+   <input type="checkbox" id="axes" onclick="timmy.draw();">
+   Ticks
+   <input type="checkbox" id="ticks" onclick="timmy.draw();">
+   </form>
+ </body>
+</html>
