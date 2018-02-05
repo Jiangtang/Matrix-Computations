@@ -1,3 +1,15 @@
+% Copyright 2018 The University of Texas at Austin
+%
+% For licensing information see
+%                http://www.cs.utexas.edu/users/flame/license.html 
+%                                                                                 
+% Programmed by: Jiangtang Hu
+%                jiangtanghu@gmail.com
+% Testing:
+% M = randi(4,4)
+% Set_to_identity_unb_var3(M)
+% eye(size(M))
+
 function [ A_out ] = Set_to_identity_unb_var3( A )
 
   [ ATL, ATR, ...

@@ -1,3 +1,15 @@
+% Copyright 2018 The University of Texas at Austin
+%
+% For licensing information see
+%                http://www.cs.utexas.edu/users/flame/license.html 
+%                                                                                 
+% Programmed by: Name of author
+%                Email of author
+% Testing:
+% M = randi(4,4); d =[1 2 3 4]'
+% Set_to_diagonal_matrix_unb_var3(M)
+% diag(M)
+
 function [ A_out ] = Set_to_diagonal_matrix_unb_var3( A, x )
 
   [ ATL, ATR, ...

@@ -6,15 +6,19 @@
 % Programmed by: Jiangtang Hu
 %                jiangtanghu@gmail.com
 % Testing:
-% M = randi(4,4)
-% Set_to_identity_unb_var1(M)
-% eye(size(M))
+% M = randi(4,4); d =[1 2 3 4]'
+% Set_to_diagonal_matrix_unb_var5(M)
+% diag(M)
 
-function [ A_out ] = Set_to_identity_unb_var1( A )
+function [ A_out ] = Set_to_diagonal_matrix_unb_var5( A, d )
 
   [ ATL, ATR, ...
     ABL, ABR ] = FLA_Part_2x2( A, ...
                                0, 0, 'FLA_TL' );
+
+  [ dT, ...
+    dB ] = FLA_Part_2x1( d, ...
+                         0, 'FLA_TOP' );
 
   while ( size( ATL, 1 ) < size( A, 1 ) )
 
@@ -24,11 +28,18 @@ function [ A_out ] = Set_to_identity_unb_var1( A )
                                                     ABL, ABR, ...
                                                     1, 1, 'FLA_BR' );
 
+    [ d0, ...
+      delta1, ...
+      d2 ] = FLA_Repart_2x1_to_3x1( dT, ...
+                                    dB, ...
+                                    1, 'FLA_BOTTOM' );
+
     %------------------------------------------------------------%
 
-    a01 = laff_zerov( a01 );
-    alpha11 = laff_onev( alpha11 );
-    a21 = laff_zerov( a21 );
+    a01 = laff_zerov(a01);
+    alpha11 = delta1;
+    %alphal1 = laff_copy(chi1,alphal1)
+    a21 = laff_zerov(a21);
 
     %------------------------------------------------------------%
 
@@ -37,6 +48,12 @@ function [ A_out ] = Set_to_identity_unb_var1( A )
                                              a10t, alpha11, a12t, ...
                                              A20,  a21,     A22, ...
                                              'FLA_TL' );
+
+    [ dT, ...
+      dB ] = FLA_Cont_with_3x1_to_2x1( d0, ...
+                                       delta1, ...
+                                       d2, ...
+                                       'FLA_TOP' );
 
   end
 

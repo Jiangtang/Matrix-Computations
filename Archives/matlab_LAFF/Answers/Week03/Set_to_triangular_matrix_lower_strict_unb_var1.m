@@ -1,3 +1,4 @@
+
 % Copyright 2018 The University of Texas at Austin
 %
 % For licensing information see
@@ -6,11 +7,11 @@
 % Programmed by: Jiangtang Hu
 %                jiangtanghu@gmail.com
 % Testing:
-% M = randi(4,4)
-% Set_to_identity_unb_var1(M)
-% eye(size(M))
+% M = randi(4,4);
+% Set_to_triangular_matrix_lower_strict_unb_var1(M)
+% tril(M,-1)
 
-function [ A_out ] = Set_to_identity_unb_var1( A )
+function [ A_out ] = Set_to_triangular_matrix_lower_strict_unb_var1( A )
 
   [ ATL, ATR, ...
     ABL, ABR ] = FLA_Part_2x2( A, ...
@@ -26,9 +27,8 @@ function [ A_out ] = Set_to_identity_unb_var1( A )
 
     %------------------------------------------------------------%
 
-    a01 = laff_zerov( a01 );
-    alpha11 = laff_onev( alpha11 );
-    a21 = laff_zerov( a21 );
+    a01 = laff_zerov(a01);
+    alpha11 = laff_zerov(alpha11);
 
     %------------------------------------------------------------%
 

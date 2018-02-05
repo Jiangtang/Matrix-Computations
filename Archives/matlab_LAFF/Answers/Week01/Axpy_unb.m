@@ -7,11 +7,11 @@
 % Programmed by: Jiangtang Hu
 %                jiangtanghu@gmail.com
 % test:
-% x = [1 2 3]'; y = [1 -1 2]'; alpha = 0;
-% beta = Dot_unb(alpha, x,y)
-% x' * y
+% alpha = 2; x = [1 2 3]'; y = [0 -1 2]';
+% Axpy_unb(alpha, x,y)
+% alpha * x + y
 
-function [ alpha_out ] = Dot_unb( alpha, x, y )
+function [ y_out ] = Axpy_unb( alpha, x, y )
 
   [ xT, ...
     xB ] = FLA_Part_2x1( x, ...
@@ -20,8 +20,6 @@ function [ alpha_out ] = Dot_unb( alpha, x, y )
   [ yT, ...
     yB ] = FLA_Part_2x1( y, ...
                          0, 'FLA_TOP' );
-                     
-  alpha = 0;
 
   while ( size( xT, 1 ) < size( x, 1 ) )
 
@@ -38,9 +36,9 @@ function [ alpha_out ] = Dot_unb( alpha, x, y )
                                     1, 'FLA_BOTTOM' );
 
     %------------------------------------------------------------%
+ 
+    psi1 = alpha * chi1 + psi1;
 
-    alpha = chi1 * psi1 + alpha;
-     
     %------------------------------------------------------------%
 
     [ xT, ...
@@ -57,8 +55,7 @@ function [ alpha_out ] = Dot_unb( alpha, x, y )
 
   end
 
-  alpha_out = alpha;
-
+  y_out = [ yT
+            yB ];
 
 return
-

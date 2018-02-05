@@ -1,3 +1,15 @@
+% Copyright 2018 The University of Texas at Austin
+%
+% For licensing information see
+%                http://www.cs.utexas.edu/users/flame/license.html 
+%                                                                                 
+% Programmed by: Jiangtang Hu
+%                jiangtanghu@gmail.com
+% Testing:
+% M = randi(5,4)
+% Set_to_zero_unb_var2(M)
+% zeros(size(M))
+
 function [ A_out ] = Set_to_zero_unb_var2( A )
 
   [ AT, ...

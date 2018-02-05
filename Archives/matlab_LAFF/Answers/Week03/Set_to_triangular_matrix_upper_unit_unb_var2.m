@@ -6,11 +6,11 @@
 % Programmed by: Jiangtang Hu
 %                jiangtanghu@gmail.com
 % Testing:
-% M = randi(4,4)
-% Set_to_identity_unb_var1(M)
-% eye(size(M))
+% M = randi(4,4);
+% Set_to_triangular_matrix_upper_unit_unb_var2(M)
+% triu( M, 1 ) + eye( size( M ) )
 
-function [ A_out ] = Set_to_identity_unb_var1( A )
+function [ A_out ] = Set_to_triangular_matrix_upper_unit_unb_var2( A )
 
   [ ATL, ATR, ...
     ABL, ABR ] = FLA_Part_2x2( A, ...
@@ -26,9 +26,8 @@ function [ A_out ] = Set_to_identity_unb_var1( A )
 
     %------------------------------------------------------------%
 
-    a01 = laff_zerov( a01 );
-    alpha11 = laff_onev( alpha11 );
     a21 = laff_zerov( a21 );
+    alpha11 = laff_onev( alpha11 );
 
     %------------------------------------------------------------%
 

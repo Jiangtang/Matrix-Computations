@@ -1,4 +1,15 @@
-function [ A_out ] = Set_to_unit_lower_triangular_matrix_unb_var2( A )
+% Copyright 2018 The University of Texas at Austin
+%
+% For licensing information see
+%                http://www.cs.utexas.edu/users/flame/license.html 
+%                                                                                 
+% Programmed by: Jiangtang Hu
+%                jiangtanghu@gmail.com
+% Testing:
+% M = randi(4,4);
+% Set_to_triangular_matrix_upper_unb_var1(M)
+% triu(M)
+function [ A_out ] = Set_to_triangular_matrix_upper_unb_var1( A )
 
   [ ATL, ATR, ...
     ABL, ABR ] = FLA_Part_2x2( A, ...
@@ -14,8 +25,7 @@ function [ A_out ] = Set_to_unit_lower_triangular_matrix_unb_var2( A )
 
     %------------------------------------------------------------%
 
-    a12t := laff_zerov( a12t );
-    alpha11 := laff_onev( alpha11 );
+    a10t = laff_zerov( a10t );
 
     %------------------------------------------------------------%
 
