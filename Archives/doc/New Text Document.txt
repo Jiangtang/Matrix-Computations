@@ -1,5 +1,4 @@
 # https://sites.google.com/site/igorcarron2/matrixfactorizations
-# https://sites.google.com/site/igorcarron2/matrixfactorizations
 # http://perception.csl.illinois.edu/matrix-rank/home.html
 http://lvdmaaten.github.io/drtoolbox/
 
